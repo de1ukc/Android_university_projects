@@ -1,4 +1,4 @@
-package com.example.converter
+package com.example.converter.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,26 +9,23 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
-import com.example.converter.databinding.FragmentMoneyBinding
+import com.example.converter.databinding.FragmentVolumeBinding
 import com.example.converter.services.services
 
 
-class MoneyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+class VolumeFragment : Fragment() {
 
-    lateinit var binding: FragmentMoneyBinding
+    lateinit var binding: FragmentVolumeBinding
     lateinit var editText1: EditText
     lateinit var editText2: EditText
     lateinit var spinnerFrom: Spinner
     lateinit var spinnerTo: Spinner
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentMoneyBinding.inflate(inflater)
+        binding = FragmentVolumeBinding.inflate(inflater)
 
         editText1 = binding.etVal1;
         editText2 = binding.etVal2;
@@ -40,9 +37,9 @@ class MoneyFragment : Fragment() {
 
         spinnerFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?,
-                position: Int, id: Long) {
-                Toast.makeText(this@MoneyFragment.context,"You Selected " +
-                        "${adapterView?.getItemAtPosition(position)}",Toast.LENGTH_SHORT).show()
+                                        position: Int, id: Long) {
+                Toast.makeText(this@VolumeFragment.context,"You Selected " +
+                        "${adapterView?.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
 
             }
 
@@ -55,8 +52,8 @@ class MoneyFragment : Fragment() {
         spinnerTo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?,
                                         position: Int, id: Long) {
-                Toast.makeText(this@MoneyFragment.context,"You Selected " +
-                        "${adapterView?.getItemAtPosition(position)}",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@VolumeFragment.context,"You Selected " +
+                        "${adapterView?.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
 
             }
 
@@ -65,7 +62,6 @@ class MoneyFragment : Fragment() {
             }
 
         }
-
 
         return binding.root
     }

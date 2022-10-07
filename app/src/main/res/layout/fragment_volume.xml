@@ -5,7 +5,7 @@
     android:id="@+id/volumeLayout"
     android:layout_width="match_parent"
     android:layout_height="266dp"
-    tools:context=".VolumeFragment">
+    tools:context=".ui.VolumeFragment">
 
     <Spinner
         android:id="@+id/spinnerFrom"
@@ -26,7 +26,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number|numberDecimal"
-        android:maxLength="9"
+        android:maxLength="13"
         app:layout_constraintStart_toStartOf="@id/spinnerFrom"
         app:layout_constraintTop_toBottomOf="@id/spinnerFrom"
         tools:layout_conversion_absoluteHeight="45dp"
@@ -50,7 +50,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number|numberDecimal"
-        android:maxLength="9"
+        android:maxLength="13"
         app:layout_constraintStart_toStartOf="@id/spinnerTo"
         app:layout_constraintTop_toBottomOf="@id/spinnerTo"
         tools:layout_conversion_absoluteHeight="45dp"

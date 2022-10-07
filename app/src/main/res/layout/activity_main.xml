@@ -176,16 +176,17 @@
                 android:layout_height="150dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/roundedbutton"
-                android:onClick="clearButtonsOnClick"
+                android:onClick="numButtonsOnClick"
                 android:text="@string/AllClean"
                 android:textSize="30dp" />
 
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnClear"
                 android:layout_width="70dp"
                 android:layout_height="150dp"
                 android:background="@drawable/roundedbutton"
-                android:onClick="clearButtonsOnClick"
+                android:onClick="numButtonsOnClick"
                 android:src="@android:drawable/ic_input_delete"
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>

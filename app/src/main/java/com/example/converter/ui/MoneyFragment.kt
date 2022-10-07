@@ -1,4 +1,4 @@
-package com.example.converter
+package com.example.converter.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,25 +9,30 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
-import com.example.converter.databinding.FragmentLengthBinding
+import androidx.fragment.app.activityViewModels
 import com.example.converter.databinding.FragmentMoneyBinding
-import com.example.converter.databinding.FragmentVolumeBinding
+import com.example.converter.models.DataModel
 import com.example.converter.services.services
+import kotlin.reflect.KProperty
 
 
-class VolumeFragment : Fragment() {
+class MoneyFragment : Fragment() {
+    // TODO: Rename and change types of parameters
 
-    lateinit var binding: FragmentVolumeBinding
+    lateinit var binding: FragmentMoneyBinding
     lateinit var editText1: EditText
     lateinit var editText2: EditText
     lateinit var spinnerFrom: Spinner
     lateinit var spinnerTo: Spinner
+    private var dataModel: DataModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentVolumeBinding.inflate(inflater)
+        // Inflate the layout for this fragment
+        binding = FragmentMoneyBinding.inflate(inflater)
 
         editText1 = binding.etVal1;
         editText2 = binding.etVal2;
@@ -39,9 +44,9 @@ class VolumeFragment : Fragment() {
 
         spinnerFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?,
-                                        position: Int, id: Long) {
-                Toast.makeText(this@VolumeFragment.context,"You Selected " +
-                        "${adapterView?.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
+                position: Int, id: Long) {
+                Toast.makeText(this@MoneyFragment.context,"You Selected " +
+                        "${adapterView?.getItemAtPosition(position)}",Toast.LENGTH_SHORT).show()
 
             }
 
@@ -54,8 +59,8 @@ class VolumeFragment : Fragment() {
         spinnerTo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?,
                                         position: Int, id: Long) {
-                Toast.makeText(this@VolumeFragment.context,"You Selected " +
-                        "${adapterView?.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MoneyFragment.context,"You Selected " +
+                        "${adapterView?.getItemAtPosition(position)}",Toast.LENGTH_SHORT).show()
 
             }
 
@@ -65,8 +70,16 @@ class VolumeFragment : Fragment() {
 
         }
 
+        dataModel.editTextMessage.value = editText1
+        dataModel.spinnerFromMessage.value = spinnerFrom
+        dataModel.spinnerToMessage.value = spinnerTo
+
         return binding.root
     }
 
+
+}
+
+operator fun Any.setValue(moneyFragment: MoneyFragment, property: KProperty<*>, dataModel: DataModel) {
 
 }

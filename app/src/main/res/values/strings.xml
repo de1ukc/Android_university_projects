@@ -30,13 +30,11 @@
         <item>foot</item>
         <item>yard</item>
         <item>mile</item>
-        <item>hand</item>
     </string-array>
 
     <string-array name="volumeValues">
         <item>liter</item>
-        <item>butt</item>
-        <item>barrel</item>
+        <item>milliliter</item>
         <item>gallon</item>
         <item>pint</item>
     </string-array>

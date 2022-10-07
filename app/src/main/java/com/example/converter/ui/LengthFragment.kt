@@ -1,4 +1,4 @@
-package com.example.converter
+package com.example.converter.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,9 +9,12 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.example.converter.databinding.FragmentLengthBinding
-import com.example.converter.databinding.FragmentMoneyBinding
+import com.example.converter.models.DataModel
 import com.example.converter.services.services
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 class LengthFragment : Fragment() {
     lateinit var binding: FragmentLengthBinding
@@ -19,6 +22,7 @@ class LengthFragment : Fragment() {
     lateinit var editText2: EditText
     lateinit var spinnerFrom: Spinner
     lateinit var spinnerTo: Spinner
+//    private var dataModel: DataModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,3 +70,4 @@ class LengthFragment : Fragment() {
     }
 
 }
+
