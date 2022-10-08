@@ -9,7 +9,9 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.example.converter.databinding.FragmentVolumeBinding
+import com.example.converter.models.AllFragmentsViewModel
 import com.example.converter.services.services
 
 
@@ -20,6 +22,8 @@ class VolumeFragment : Fragment() {
     lateinit var editText2: EditText
     lateinit var spinnerFrom: Spinner
     lateinit var spinnerTo: Spinner
+    private val viewModel: AllFragmentsViewModel by activityViewModels<AllFragmentsViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

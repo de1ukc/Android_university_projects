@@ -4,20 +4,17 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.tabs.TabLayout
 
-open class DataModel: ViewModel() {
-    val message: MutableLiveData<String> by lazy {
+open class AllFragmentsViewModel: ViewModel() {
+    val StringMessage: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
 
     val editTextMessage: MutableLiveData<EditText> by lazy {
         MutableLiveData<EditText>()
     }
-
-    val spinnerFromMessage: MutableLiveData<Spinner> by lazy {
-        MutableLiveData<Spinner>()
-    }
-    val spinnerToMessage: MutableLiveData<Spinner> by lazy {
-        MutableLiveData<Spinner>()
+    val tabLayoutMessage: MutableLiveData<TabLayout> by lazy {
+        MutableLiveData<TabLayout>()
     }
 }

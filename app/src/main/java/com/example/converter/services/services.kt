@@ -105,10 +105,23 @@ class services {
             )
         )
 
-        fun converter(type: String,from: String, to: String, number: Double): String{
-//            var ans: BigDecimal = unitsMap[type]?.get(from)?.get(to)?.let { it(number) }!!
+        private fun convert_from_map(type: String,from: String, to: String, number: Double): String{
             var answer = unitsMap?.get(type.lowercase())?.get(from)?.get(to)?.invoke(number)
             return answer.toString()
+        }
+
+
+
+        fun convert(type: String, from: String, to:String, number: String): String{
+
+            if (number.equals(""))
+                return ""
+
+            val numb = number.toDouble()
+            val ans = convert_from_map(type, from, to, numb)
+
+            return ans.toString()
+
         }
     }
 

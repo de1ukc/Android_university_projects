@@ -11,10 +11,8 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.converter.databinding.FragmentLengthBinding
-import com.example.converter.models.DataModel
+import com.example.converter.models.AllFragmentsViewModel
 import com.example.converter.services.services
-import kotlin.properties.ReadWriteProperty
-import kotlin.reflect.KProperty
 
 class LengthFragment : Fragment() {
     lateinit var binding: FragmentLengthBinding
@@ -22,7 +20,8 @@ class LengthFragment : Fragment() {
     lateinit var editText2: EditText
     lateinit var spinnerFrom: Spinner
     lateinit var spinnerTo: Spinner
-//    private var dataModel: DataModel by activityViewModels()
+    private val viewModel: AllFragmentsViewModel by activityViewModels<AllFragmentsViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
