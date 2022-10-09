@@ -2,19 +2,19 @@ package com.example.converter.ui
 
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.converter.databinding.FragmentMoneyBinding
 import com.example.converter.models.AllFragmentsViewModel
 import com.example.converter.services.services
 import com.example.converter.services.services.Companion.convert
+import com.example.converter.services.services.Companion.copyText
+import com.example.converter.services.services.Companion.period
 import com.google.android.material.tabs.TabLayout
 
 
@@ -40,6 +40,24 @@ class MoneyFragment : Fragment() {
         services.blockKeyboardInput(editText1)
         services.blockKeyboardInput(editText2)
 
+        editText2.setOnClickListener{
+            editText2.setCursorVisible(false);
+//            editText2.isLongClickable = false
+        }
+
+        editText2.customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+                return false
+            }
+            override fun onDestroyActionMode(mode: ActionMode) {}
+            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+                return false
+            }
+            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                return false
+            }
+        }
+
         spinnerFrom = binding.spinnerFrom
         spinnerTo = binding.spinnerTo
 
@@ -47,25 +65,44 @@ class MoneyFragment : Fragment() {
             tabLayout = it
         }
 
-        spinnerFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.btnSwap.setOnClickListener {
+            val position_from = spinnerFrom.selectedItemPosition
+            val position_to = spinnerTo.selectedItemPosition
+
+            spinnerFrom.setSelection(position_to)
+            spinnerTo.setSelection(position_from)
+
+        }
+
+        binding.bntCopy1.setOnClickListener {
+
+            copyText(it, editText1)
+
+            Toast.makeText(
+                this@MoneyFragment.context,
+                "Text copied ",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+        binding.bntCopy2.setOnClickListener {
+            copyText(it, editText2)
+
+            Toast.makeText(
+                this@MoneyFragment.context,
+                "Text copied ",
+                Toast.LENGTH_LONG
+            ).show()
+
+        }
+
+
+        spinnerFrom.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 adapterView: AdapterView<*>?, view: View?,
                 position: Int, id: Long
             ) {
-                Toast.makeText(
-                    this@MoneyFragment.context, "You Selected " +
-                            "${adapterView?.getItemAtPosition(position)}", Toast.LENGTH_SHORT
-                ).show()
-
-//                val type: String = tabLayout.getTabAt(tabLayout.selectedTabPosition)?.text.toString()
-//                val from: String = spinnerFrom.selectedItem.toString()
-//
-//                val to: String = spinnerTo.selectedItem.toString()
-//                val number: String = editText1.text.toString()
-//                val answer = convert(type, from, to, number)
-//
-//                editText2.setText(answer)
-                call_converter()
+                callConverter()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -79,21 +116,7 @@ class MoneyFragment : Fragment() {
                 adapterView: AdapterView<*>?, view: View?,
                 position: Int, id: Long
             ) {
-                Toast.makeText(
-                    this@MoneyFragment.context, "You Selected " +
-                            "${adapterView?.getItemAtPosition(position)}", Toast.LENGTH_SHORT
-                ).show()
-
-
-//                val type: String = tabLayout.getTabAt(tabLayout.selectedTabPosition)?.text.toString()
-//                val from: String = spinnerFrom.selectedItem.toString()
-//
-//                val to: String = spinnerTo.selectedItem.toString()
-//                val number: String = editText1.text.toString()
-//                val answer = convert(type, from, to, number)
-//
-//                editText2.setText(answer)
-                call_converter()
+                callConverter()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -102,9 +125,10 @@ class MoneyFragment : Fragment() {
 
         }
 
+
         viewModel.editTextMessage.value = editText1
 
-        viewModel.StringMessage.observe(viewLifecycleOwner) {
+        viewModel.StringMessageMoney.observe(viewLifecycleOwner) {
 
             if (it.equals("-1")) {
                 editText1?.setText("")
@@ -123,24 +147,12 @@ class MoneyFragment : Fragment() {
                 updateString(it)
             }
 
-//            val type: String = tabLayout.getTabAt(tabLayout.selectedTabPosition)?.text.toString()
-//            val from: String = spinnerFrom.selectedItem.toString()
-//
-//            val to: String = spinnerTo.selectedItem.toString()
-//            val number: String = editText1.text.toString()
-//            val answer = convert(type, from, to, number)
-//
-//            editText2.setText(answer)
-            call_converter()
+            callConverter()
         }
 
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
 
     fun updateString(strToAdd: String) {
         var oldStr: String = editText1?.text.toString()
@@ -156,17 +168,28 @@ class MoneyFragment : Fragment() {
         editText1.setSelection(cursorPos + 1)
     }
 
-    fun call_converter() {
+    fun callConverter() {
         val type: String = tabLayout.getTabAt(tabLayout.selectedTabPosition)?.text.toString()
         val from: String = spinnerFrom.selectedItem.toString()
 
         val to: String = spinnerTo.selectedItem.toString()
         val number: String = editText1.text.toString()
-        val answer = convert(type, from, to, number)
+        var answer = convert(type, from, to, number)
 
-        editText2.setText(answer)
+        var response = answer
+        if (answer != "")
+            response = period(answer)
+
+        editText2.setText(response)
     }
 
+
+
+
+//    private fun pasteTextFromClipboard() {
+//        val clipboardManager = it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//        tvTextToPaste.text = clipboardManager.primaryClip?.getItemAt(0)?.text
+//    }
 
 }
 

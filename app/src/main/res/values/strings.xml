@@ -10,6 +10,7 @@
     <string name="eight">8</string>
     <string name="nine">9</string>
     <string name="zero">0</string>
+    <string name="doubleZero">00</string>
     <string name="dot">.</string>
     <string name="AllClean">AC</string>
 

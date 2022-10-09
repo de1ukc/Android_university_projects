@@ -6,8 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.material.tabs.TabLayout
 
-open class AllFragmentsViewModel: ViewModel() {
-    val StringMessage: MutableLiveData<String> by lazy {
+open class AllFragmentsViewModel : ViewModel() {
+    val StringMessageMoney: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    val StringMessageLength: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    val StringMessageVolume: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
 

@@ -51,10 +51,51 @@
         android:ems="10"
         android:inputType="number|numberDecimal"
         android:maxLength="13"
-
+        android:cursorVisible="false"
         app:layout_constraintStart_toStartOf="@id/spinnerTo"
         app:layout_constraintTop_toBottomOf="@id/spinnerTo"
         tools:layout_conversion_absoluteHeight="45dp"
         tools:layout_conversion_absoluteWidth="250dp" />
+
+    <ImageButton
+        android:id="@+id/bntCopy2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/main_color"
+        android:src="?attr/actionModeCopyDrawable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bntCopy1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/bntCopy1"
+        app:layout_constraintTop_toBottomOf="@+id/bntCopy1"
+        app:layout_constraintVertical_bias="0.04" />
+
+    <ImageButton
+        android:id="@+id/bntCopy1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/main_color"
+        android:src="?attr/actionModeCopyDrawable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/etVal1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnSwap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="@color/main_color"
+        android:src="@drawable/ic_swap_svgrepo_com"
+        app:layout_constraintBottom_toTopOf="@+id/bntCopy2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/bntCopy1"
+        app:layout_constraintTop_toBottomOf="@+id/bntCopy1"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

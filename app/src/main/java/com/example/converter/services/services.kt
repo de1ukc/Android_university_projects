@@ -1,5 +1,9 @@
 package com.example.converter.services
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.view.View
 import android.widget.EditText
 import java.math.BigDecimal
 
@@ -12,9 +16,24 @@ class services {
             editText.setShowSoftInputOnFocus(false)
         }
 
+        enum class TabLayoutPosition(val pos: Int){
+            Money(0),
+            Length(1),
+            Volume(2)
+        }
+
+        fun copyText(view: View, editText: EditText) {
+
+            val textToCopy = editText.text.toString()
+            val clipboardManager =
+                view.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text", textToCopy)
+            clipboardManager.setPrimaryClip(clipData)
+        }
+
 
         val unitsMap = mapOf(
-            "Length" to mapOf(
+            "length" to mapOf(
                 "meter" to mapOf(
                     "meter" to fun(x: Double): BigDecimal = x.toBigDecimal(),
                     "foot" to fun(x: Double): BigDecimal = (x * 3.281).toBigDecimal(),
@@ -105,23 +124,45 @@ class services {
             )
         )
 
-        private fun convert_from_map(type: String,from: String, to: String, number: Double): String{
+        private fun convertFromMap(
+            type: String,
+            from: String,
+            to: String,
+            number: Double
+        ): String {
             var answer = unitsMap?.get(type.lowercase())?.get(from)?.get(to)?.invoke(number)
             return answer.toString()
         }
 
 
-
-        fun convert(type: String, from: String, to:String, number: String): String{
+        fun convert(type: String, from: String, to: String, number: String): String {
 
             if (number.equals(""))
                 return ""
 
             val numb = number.toDouble()
-            val ans = convert_from_map(type, from, to, numb)
+            val ans = convertFromMap(type, from, to, numb)
 
             return ans.toString()
 
+        }
+
+        fun period(number: String): String{
+            var answer: String = number
+            
+            if (!number.contains("."))
+                return number
+
+            if (number.endsWith(".0")){
+                answer = number.toDouble().toInt().toString()
+
+                return answer
+            }
+
+            val pattern: Regex = Regex("")
+
+            // доделать регулярку
+            return answer
         }
     }
 

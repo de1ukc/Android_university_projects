@@ -56,12 +56,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun numButtonsOnClick(view: View) {
-
-
         var symb :String = ""
 
         if (editText.text.length <= 12) { // на самом деле количество символов 13
-
 
             when (view.id) {
                 bindingClass.btnZero?.id -> symb = getString(R.string.zero)
@@ -89,8 +86,17 @@ class MainActivity : AppCompatActivity() {
             bindingClass.btnClear?.id -> symb = "-0"
         }
 
-        if (!symb.equals(""))
-            viewModel.StringMessage.value = symb
+        if (symb != "")
+            when(bindingClass.tabLayoutType?.selectedTabPosition){
+                services.Companion.TabLayoutPosition.Money.pos ->
+                    viewModel.StringMessageMoney.value = symb
+
+                services.Companion.TabLayoutPosition.Length.pos ->
+                    viewModel.StringMessageLength.value = symb
+
+                services.Companion.TabLayoutPosition.Volume.pos ->
+                    viewModel.StringMessageVolume.value = symb
+            }
     }
 }
 
