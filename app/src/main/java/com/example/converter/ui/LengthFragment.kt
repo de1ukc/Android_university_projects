@@ -18,7 +18,7 @@ import com.google.android.material.tabs.TabLayout
 class LengthFragment : Fragment() {
     lateinit var binding: FragmentLengthBinding
     private val viewModel: AllFragmentsViewModel by activityViewModels<AllFragmentsViewModel>()
-    var Type:String = "Length"
+    var Type: String = "Length"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -143,10 +143,19 @@ class LengthFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-            callConverter()
+        callConverter()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.StringMessageLength.value =
+            "" // очищаю, шоб после переворота не добавился лишний символ
     }
 
     fun updateString(strToAdd: String) {
+        if (strToAdd.isEmpty())
+            return
+
         var oldStr: String = binding.editText1?.text.toString()
         val cursorPos: Int = binding.editText1?.selectionStart
         var leftString: String = oldStr.substring(0, cursorPos)
@@ -157,6 +166,7 @@ class LengthFragment : Fragment() {
         } else {
             binding.editText1.setText(String.format("%s%s%s", leftString, strToAdd, rightStr))
         }
+
         binding.editText1.setSelection(cursorPos + 1)
     }
 
@@ -171,6 +181,7 @@ class LengthFragment : Fragment() {
         var response = answer
         if (answer != "")
             response = services.period(answer)
+
 
         binding.editText2.setText(response)
     }

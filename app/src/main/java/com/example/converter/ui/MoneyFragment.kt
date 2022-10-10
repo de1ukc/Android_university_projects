@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout
 class MoneyFragment : Fragment() {
     lateinit var binding: FragmentMoneyBinding
     private val viewModel: AllFragmentsViewModel by activityViewModels<AllFragmentsViewModel>()
-    var Type:String = "Money"
+    var Type: String = "Money"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -145,41 +145,22 @@ class MoneyFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-            callConverter()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+
-        "RESUME")
         callConverter()
+
     }
 
-    override fun onPause() {
-        super.onPause()
-        super.onResume()
-        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+
-                "PAUSE")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        super.onResume()
-        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+
-                "STOP")
-    }
 
     override fun onDestroy() {
         super.onDestroy()
-        super.onResume()
-        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+
-                "DESTROY")
+        viewModel.StringMessageMoney.value =
+            "" // очищаю, шоб после переворота не добавился лишний символ
     }
 
 
-
     fun updateString(strToAdd: String) {
+        if (strToAdd.isEmpty())
+            return
+
         var oldStr: String = binding.editText1?.text.toString()
         val cursorPos: Int = binding.editText1?.selectionStart
         var leftString: String = oldStr.substring(0, cursorPos)
@@ -187,10 +168,10 @@ class MoneyFragment : Fragment() {
 
         if (binding.editText1.text.toString().equals("")) {
             binding.editText1.setText(strToAdd)
-        }
-        else {
+        } else {
             binding.editText1.setText(String.format("%s%s%s", leftString, strToAdd, rightStr))
         }
+
         binding.editText1.setSelection(cursorPos + 1)
     }
 
@@ -205,8 +186,9 @@ class MoneyFragment : Fragment() {
         var response = answer
         if (answer != "")
             response = period(answer)
-
+        
         binding.editText2.setText(response)
+//        binding.editText2.setText()
     }
 //    private fun pasteTextFromClipboard() {
 //        val clipboardManager = it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingClass.root)
-        
 
         viewPager = bindingClass.exchanger!!
         tabLayout = bindingClass.tabLayoutType!!
@@ -42,28 +41,41 @@ class MainActivity : AppCompatActivity() {
         val adapter = ViewPagerAdapter(this)
         viewPager.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager){tab,index ->
-            tab.text = when(index){
+        TabLayoutMediator(tabLayout, viewPager) { tab, index ->
+            tab.text = when (index) {
                 0 -> getString(R.string.money)
                 1 -> getString(R.string.length)
                 2 -> getString(R.string.volume)
-                else -> {throw Resources.NotFoundException("Caption Not Found lol")}
+                else -> {
+                    throw Resources.NotFoundException("Caption Not Found lol")
+                }
             }
         }.attach()
 
-        viewModel.editTextMessage.observe(this){
+        viewModel.editTextMessage.observe(this) {
             editText = it
         }
 
     }
 
     fun numButtonsOnClick(view: View) {
-        var symb :String = ""
+        var symb: String = ""
 
         if (editText.text.length <= 12) { // на самом деле количество символов 13
 
             when (view.id) {
                 bindingClass.btnZero?.id -> symb = getString(R.string.zero)
+                bindingClass.btn00?.id -> {
+                    if (editText.text.length < 12)
+                        symb = getString(R.string.doubleZero)
+                    else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Only 1 symbol can be added ",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
                 bindingClass.btn1?.id -> symb = getString(R.string.one)
                 bindingClass.btn2?.id -> symb = getString(R.string.two)
                 bindingClass.btn3?.id -> symb = getString(R.string.three)
@@ -78,18 +90,17 @@ class MainActivity : AppCompatActivity() {
                         symb = getString(R.string.dot)
                 }
             }
-        }
-        else{
-            Toast.makeText(this@MainActivity,"Naaah! Too many numbers ",Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this@MainActivity, "Naaah! Too many numbers ", Toast.LENGTH_LONG).show()
         }
 
-        when(view.id){
+        when (view.id) {
             bindingClass.btnAc?.id -> symb = "-1"
             bindingClass.btnClear?.id -> symb = "-0"
         }
 
         if (symb != "")
-            when(bindingClass.tabLayoutType?.selectedTabPosition){
+            when (bindingClass.tabLayoutType?.selectedTabPosition) {
                 services.Companion.TabLayoutPosition.Money.pos ->
                     viewModel.StringMessageMoney.value = symb
 

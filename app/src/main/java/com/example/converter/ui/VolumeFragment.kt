@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout
 class VolumeFragment : Fragment() {
     lateinit var binding: FragmentVolumeBinding
     private val viewModel: AllFragmentsViewModel by activityViewModels<AllFragmentsViewModel>()
-    var Type:String = "Volume"
+    var Type: String = "Volume"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -152,10 +152,17 @@ class VolumeFragment : Fragment() {
         callConverter()
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.StringMessageVolume.value =
+            "" // очищаю, шоб после переворота не добавился лишний символ
+    }
 
 
     fun updateString(strToAdd: String) {
+        if (strToAdd.isEmpty())
+            return
+
         var oldStr: String = binding.editText1?.text.toString()
         val cursorPos: Int = binding.editText1?.selectionStart
         var leftString: String = oldStr.substring(0, cursorPos)
@@ -166,6 +173,7 @@ class VolumeFragment : Fragment() {
         } else {
             binding.editText1.setText(String.format("%s%s%s", leftString, strToAdd, rightStr))
         }
+
         binding.editText1.setSelection(cursorPos + 1)
     }
 
