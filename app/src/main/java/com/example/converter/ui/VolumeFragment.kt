@@ -9,8 +9,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.converter.databinding.FragmentLengthBinding
-import com.example.converter.databinding.FragmentMoneyBinding
+
 import com.example.converter.databinding.FragmentVolumeBinding
 import com.example.converter.models.AllFragmentsViewModel
 import com.example.converter.services.services
@@ -22,7 +21,7 @@ import com.google.android.material.tabs.TabLayout
 class VolumeFragment : Fragment() {
     lateinit var binding: FragmentVolumeBinding
     private val viewModel: AllFragmentsViewModel by activityViewModels<AllFragmentsViewModel>()
-    lateinit var tabLayout: TabLayout
+    var Type:String = "Volume"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,10 +46,10 @@ class VolumeFragment : Fragment() {
                 return false
             }
         }
-
-        viewModel.tabLayoutMessage.observe(viewLifecycleOwner) {
-            tabLayout = it
-        }
+//
+//        viewModel.tabLayoutMessage.observe(viewLifecycleOwner) {
+//            tabLayout = it
+//        }
 
         binding.btnSwap.setOnClickListener {
             val position_from = binding.spinnerFrom.selectedItemPosition
@@ -148,6 +147,13 @@ class VolumeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        callConverter()
+    }
+
+
+
 
     fun updateString(strToAdd: String) {
         var oldStr: String = binding.editText1?.text.toString()
@@ -164,7 +170,7 @@ class VolumeFragment : Fragment() {
     }
 
     fun callConverter() {
-        val type: String = tabLayout.getTabAt(tabLayout.selectedTabPosition)?.text.toString()
+        val type: String = Type
         val from: String = binding.spinnerFrom.selectedItem.toString()
 
         val to: String = binding.spinnerTo.selectedItem.toString()

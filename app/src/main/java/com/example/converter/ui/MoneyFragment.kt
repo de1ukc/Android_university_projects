@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout
 class MoneyFragment : Fragment() {
     lateinit var binding: FragmentMoneyBinding
     private val viewModel: AllFragmentsViewModel by activityViewModels<AllFragmentsViewModel>()
-    lateinit var tabLayout: TabLayout
+    var Type:String = "Money"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,10 +46,6 @@ class MoneyFragment : Fragment() {
             override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
                 return false
             }
-        }
-
-        viewModel.tabLayoutMessage.observe(viewLifecycleOwner) {
-            tabLayout = it
         }
 
         binding.btnSwap.setOnClickListener {
@@ -136,9 +132,7 @@ class MoneyFragment : Fragment() {
 
             callConverter()
         }
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -148,6 +142,41 @@ class MoneyFragment : Fragment() {
         binding = FragmentMoneyBinding.inflate(inflater)
         return binding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+            callConverter()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+
+        "RESUME")
+        callConverter()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        super.onResume()
+        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+
+                "PAUSE")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        super.onResume()
+        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+
+                "STOP")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        super.onResume()
+        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+
+                "DESTROY")
+    }
+
 
 
     fun updateString(strToAdd: String) {
@@ -166,7 +195,7 @@ class MoneyFragment : Fragment() {
     }
 
     fun callConverter() {
-        val type: String = tabLayout.getTabAt(tabLayout.selectedTabPosition)?.text.toString()
+        val type: String = Type
         val from: String = binding.spinnerFrom.selectedItem.toString()
 
         val to: String = binding.spinnerTo.selectedItem.toString()

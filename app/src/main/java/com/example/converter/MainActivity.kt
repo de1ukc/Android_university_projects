@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
@@ -31,10 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         bindingClass = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingClass.root)
+        
 
         viewPager = bindingClass.exchanger!!
         tabLayout = bindingClass.tabLayoutType!!
 
+        viewModel.tabLayoutMessage.value = tabLayout
 
         val adapter = ViewPagerAdapter(this)
         viewPager.adapter = adapter
@@ -52,7 +55,6 @@ class MainActivity : AppCompatActivity() {
             editText = it
         }
 
-        viewModel.tabLayoutMessage.value = tabLayout
     }
 
     fun numButtonsOnClick(view: View) {

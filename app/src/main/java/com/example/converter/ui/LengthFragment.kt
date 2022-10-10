@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.*
 import android.widget.AdapterView
-import android.widget.EditText
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.converter.databinding.FragmentLengthBinding
-import com.example.converter.databinding.FragmentVolumeBinding
 import com.example.converter.models.AllFragmentsViewModel
 import com.example.converter.services.services
 import com.example.converter.services.services.Companion.convert
@@ -21,7 +18,7 @@ import com.google.android.material.tabs.TabLayout
 class LengthFragment : Fragment() {
     lateinit var binding: FragmentLengthBinding
     private val viewModel: AllFragmentsViewModel by activityViewModels<AllFragmentsViewModel>()
-    lateinit var tabLayout: TabLayout
+    var Type:String = "Length"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,10 +42,6 @@ class LengthFragment : Fragment() {
             override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
                 return false
             }
-        }
-
-        viewModel.tabLayoutMessage.observe(viewLifecycleOwner) {
-            tabLayout = it
         }
 
         binding.btnSwap.setOnClickListener {
@@ -144,9 +137,14 @@ class LengthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLengthBinding.inflate(inflater)
+
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+            callConverter()
+    }
 
     fun updateString(strToAdd: String) {
         var oldStr: String = binding.editText1?.text.toString()
@@ -163,7 +161,7 @@ class LengthFragment : Fragment() {
     }
 
     fun callConverter() {
-        val type: String = tabLayout.getTabAt(tabLayout.selectedTabPosition)?.text.toString()
+        val type: String = Type
         val from: String = binding.spinnerFrom.selectedItem.toString()
 
         val to: String = binding.spinnerTo.selectedItem.toString()
