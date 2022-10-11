@@ -131,7 +131,7 @@ class services {
             number: Double
         ): String {
             var answer = unitsMap?.get(type.lowercase())?.get(from)?.get(to)?.invoke(number)
-            return answer.toString()
+            return answer?.toPlainString()!!
         }
 
 

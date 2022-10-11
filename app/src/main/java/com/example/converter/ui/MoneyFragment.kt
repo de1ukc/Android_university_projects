@@ -186,7 +186,7 @@ class MoneyFragment : Fragment() {
         var response = answer
         if (answer != "")
             response = period(answer)
-        
+
         binding.editText2.setText(response)
 //        binding.editText2.setText()
     }
