@@ -14,6 +14,7 @@ import com.example.converter.R
 import com.example.converter.databinding.FragmentBaseBinding
 import com.example.converter.models.MetricsViewModel
 import com.example.converter.services.services
+import com.example.converter.services.services.Companion.blockKeyboardInput
 import com.google.android.material.tabs.TabLayout
 
 
@@ -93,12 +94,7 @@ class BaseFragment : Fragment() {
                 "Text copied ",
                 Toast.LENGTH_LONG
             ).show()
-
         }
-
-//        viewModel.tabLayoutMessage.observe(viewLifecycleOwner){
-//            tabLayout = it
-//        }
 
         binding.spinnerFrom.onItemSelectedListener = spinnerSetOnClickListener
 
@@ -120,16 +116,27 @@ class BaseFragment : Fragment() {
                     observer(it)
                 }
             }
-
         }
-
-
-
     }
 
     override fun onStart() {
         super.onStart()
         callConverter()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        blockKeyboardInput(binding.editText1)
+        binding.editText1.isEnabled = false //  отключаю всплывание клавиатуры, после сворачивания приложения
+        binding.editText1.isEnabled = true
+        binding.editText2.isEnabled = false
+        binding.editText2.isEnabled = true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        blockKeyboardInput(binding.editText1)
+
     }
 
     override fun onDestroyView() {
