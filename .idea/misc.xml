@@ -7,10 +7,13 @@
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2595" />
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/drawable/ic_swap_svgrepo_com.xml" value="0.256" />
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/drawable/roundedbutton.xml" value="0.2595" />
-        <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout-land/activity_main.xml" value="0.4" />
+        <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout-land/activity_main.xml" value="0.16847826086956522" />
+        <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout-land/fragment_numpad.xml" value="0.3411458333333333" />
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout/activity_main.xml" value="0.18149466192170818" />
+        <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout/fragment_base.xml" value="0.25416666666666665" />
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout/fragment_length.xml" value="0.2" />
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout/fragment_money.xml" value="0.4" />
+        <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout/fragment_numpad.xml" value="0.16" />
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout/fragment_volume.xml" value="0.4" />
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout/spinners.xml" value="0.25416666666666665" />
         <entry key="..\:/MyStuff/Programming/Git/Android_university_projects/app/src/main/res/layout/spinners_fragment.xml" value="0.25416666666666665" />

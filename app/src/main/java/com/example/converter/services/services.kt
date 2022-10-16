@@ -32,6 +32,7 @@ class services {
         }
 
 
+
         val unitsMap = mapOf(
             "length" to mapOf(
                 "meter" to mapOf(
@@ -153,7 +154,7 @@ class services {
             if (!number.contains("."))
                 return number
 
-            if (number.endsWith(".0")){
+            if (number.endsWith(".0") || number.endsWith(".")){
                 answer = number.toDouble().toInt().toString()
 
                 return answer
@@ -164,7 +165,35 @@ class services {
             // доделать регулярку
             return answer
         }
+
+//        var spinnerSetOnClickListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(
+//                adapterView: AdapterView<*>?, view: View?,
+//                position: Int, id: Long
+//            ) {
+//                callConverter()
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                // NO WAY
+//            }
+//
+//        }
     }
 
-
+//    fun callConverter(binding: DataBindingComponent, metric_type: String) {
+//        val type: String = metric_type
+//        val from: String = binding.spinnerFrom.selectedItem.toString()
+//
+//        val to: String = binding.spinnerTo.selectedItem.toString()
+//        val number: String = binding.editText1.text.toString()
+//        var answer = convert(type, from, to, number)
+//
+//        var response = answer
+//        if (answer != "")
+//            response = period(answer)
+//
+//        binding.editText2.setText(response)
+////        binding.editText2.setText()
+//    }
 }
