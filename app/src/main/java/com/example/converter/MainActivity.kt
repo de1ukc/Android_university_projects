@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewPager: ViewPager2
     lateinit var tabLayout: TabLayout
     private val viewModel: MetricsViewModel by viewModels()
-    lateinit var editText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +48,6 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
 
-        viewModel.editTextMessage.observe(this) {
-            editText = it
-        }
     }
 }
 

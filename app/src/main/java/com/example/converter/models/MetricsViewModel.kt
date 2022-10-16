@@ -7,13 +7,16 @@ import androidx.lifecycle.ViewModel
 import com.google.android.material.tabs.TabLayout
 
 open class MetricsViewModel : ViewModel() {
-    val stringMessage: MutableLiveData<String> by lazy {
+    val stringMoneyMessage: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    val stringVolumeMessage: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    val stringLengthMessage: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
 
-    val editTextMessage: MutableLiveData<EditText> by lazy {
-        MutableLiveData<EditText>()
-    }
     val tabLayoutMessage: MutableLiveData<TabLayout> by lazy {
         MutableLiveData<TabLayout>()
     }

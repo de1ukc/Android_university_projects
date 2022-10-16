@@ -5,16 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.converter.R
 import com.example.converter.databinding.FragmentNumpadBinding
 import com.example.converter.models.MetricsViewModel
+import com.example.converter.services.services
+import com.google.android.material.tabs.TabLayout
 
 class NumpadFragment : Fragment() {
     lateinit var binding: FragmentNumpadBinding
-    private val viewModel: MetricsViewModel by viewModels()
-
+    private val viewModel: MetricsViewModel by activityViewModels<MetricsViewModel>()
+    lateinit var tabLayout: TabLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +43,10 @@ class NumpadFragment : Fragment() {
         binding.btnDot.setOnClickListener { view -> numButtonsOnClick(view) }
         binding.btnAc.setOnClickListener { view -> numButtonsOnClick(view) }
         binding.btnClear.setOnClickListener { view -> numButtonsOnClick(view) }
+
+        viewModel.tabLayoutMessage.observe(viewLifecycleOwner){
+            tabLayout = it
+        }
     }
 
     fun numButtonsOnClick(view: View) {
@@ -63,7 +69,18 @@ class NumpadFragment : Fragment() {
             binding.btnClear?.id -> symb = "-0"
         }
 
-        viewModel.stringMessage.value = symb
+
+        when(tabLayout.selectedTabPosition){
+            services.Companion.TabLayoutPosition.Money.pos -> {
+                viewModel.stringMoneyMessage.value = symb
+            }
+            services.Companion.TabLayoutPosition.Length.pos -> {
+                viewModel.stringLengthMessage.value = symb
+            }
+            services.Companion.TabLayoutPosition.Volume.pos -> {
+                viewModel.stringVolumeMessage.value = symb
+            }
+        }
     }
 
 

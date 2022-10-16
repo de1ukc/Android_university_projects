@@ -8,17 +8,23 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.converter.R
 import com.example.converter.databinding.FragmentBaseBinding
 import com.example.converter.models.MetricsViewModel
 import com.example.converter.services.services
+import com.google.android.material.tabs.TabLayout
 
 
 class BaseFragment : Fragment() {
     lateinit var binding: FragmentBaseBinding
-    private val viewModel: MetricsViewModel by viewModels()
+//    lateinit var  tabLayout: TabLayout
+
+    private val viewModel: MetricsViewModel by activityViewModels<MetricsViewModel>()
     private var convertType: String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,57 +96,35 @@ class BaseFragment : Fragment() {
 
         }
 
-        viewModel.editTextMessage.value = binding.editText1
+//        viewModel.tabLayoutMessage.observe(viewLifecycleOwner){
+//            tabLayout = it
+//        }
 
         binding.spinnerFrom.onItemSelectedListener = spinnerSetOnClickListener
 
         binding.spinnerTo.onItemSelectedListener = spinnerSetOnClickListener
 
-        viewModel.stringMessage.observe(viewLifecycleOwner) {
-
-            if (it.equals("-1")) {
-                binding.editText1?.setText("")
-            } else if (it.equals("-0")) {
-                val cursorPose: Int = binding.editText1.selectionStart
-                val textLen: Int = binding.editText1.text.length
-
-                if (cursorPose != 0 && textLen != 0) {
-                    val selection: SpannableStringBuilder =
-                        binding.editText1.text as SpannableStringBuilder
-                    selection.replace(cursorPose - 1, cursorPose, "")
-                    binding.editText1.setText(selection)
-                    binding.editText1.setSelection(cursorPose - 1)
+        when(convertType){
+            "Money" -> {
+                viewModel.stringMoneyMessage.observe(viewLifecycleOwner) {
+                    observer(it)
                 }
-            } else {
-                if (binding.editText1.text.length <= 12) {
-                    if (it.equals(".")) {
-                        if (!binding.editText1.text.contains(".")) {
-                            updateString(it)
-                        }
-                    } else if (it.equals("00")) {
-                        if (binding.editText1.text.length < 12) {
-                            updateString(it)
-                        } else{
-                            Toast.makeText(
-                                this@BaseFragment.context,
-                                "Only 1 symbol can be added ",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    } else {
-                        updateString(it)
-                    }
-                } else {
-                    Toast.makeText(
-                        this@BaseFragment.context,
-                        "Naaah! Too many numbers ",
-                        Toast.LENGTH_LONG
-                    ).show()
+            }
+            "Length" -> {
+                viewModel.stringLengthMessage.observe(viewLifecycleOwner) {
+                    observer(it)
+                }
+            }
+           "Volume" -> {
+                viewModel.stringVolumeMessage.observe(viewLifecycleOwner) {
+                    observer(it)
                 }
             }
 
-            callConverter()
         }
+
+
+
     }
 
     override fun onStart() {
@@ -148,10 +132,22 @@ class BaseFragment : Fragment() {
         callConverter()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.stringMessage.value =
-            "" // очищаю, шоб после переворота не добавился лишний символ
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        when(convertType){
+            "Money" -> {
+                viewModel.stringMoneyMessage.value = ""
+            }
+            "Length" -> {
+                viewModel.stringLengthMessage.value = ""
+            }
+            "Volume" -> {
+                viewModel.stringVolumeMessage.value = ""
+            }
+        }
+//        viewModel.stringMessage.value =
+//            "" // очищаю, шоб после переворота не добавился лишний символ
     }
 
     fun updateString(strToAdd: String) {
@@ -169,9 +165,8 @@ class BaseFragment : Fragment() {
             binding.editText1.setText(String.format("%s%s%s", leftString, strToAdd, rightStr))
         }
 
-        if (binding.editText1?.text.length < 13) {
+        if (binding.editText1?.text.length < 16) {  // до 16, чтоб курсор не обнулялся на последнем символе
             binding.editText1.setSelection(cursorPos + 1)
-
         }
     }
 
@@ -231,6 +226,58 @@ class BaseFragment : Fragment() {
             response = services.period(answer)
 
         binding.editText2.setText(response)
+    }
+
+    fun observer(it: String){
+        if (it.equals("-1")) {
+            binding.editText1?.setText("")
+        } else if (it.equals("-0")) {
+            val cursorPose: Int = binding.editText1.selectionStart
+            val textLen: Int = binding.editText1.text.length
+
+            if (cursorPose != 0 && textLen != 0) {
+                val selection: SpannableStringBuilder =
+                    binding.editText1.text as SpannableStringBuilder
+                selection.replace(cursorPose - 1, cursorPose, "")
+                binding.editText1.setText(selection)
+                binding.editText1.setSelection(cursorPose - 1)
+            }
+        } else {
+            if (binding.editText1.text.length < 15) {
+                if (it.equals(".")) {
+                    if (!binding.editText1.text.contains(".") && binding.editText1.text.length != 14) {
+                        updateString(it)
+                    }
+                    if (binding.editText1.text.length == 14){
+                        Toast.makeText(
+                            this@BaseFragment.context,
+                            "Last symbol can not be . ",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                } else if (it.equals("00")) {
+                    if (binding.editText1.text.length < 14) {
+                        updateString(it)
+                    } else {
+                        Toast.makeText(
+                            this@BaseFragment.context,
+                            "Only 1 symbol can be added ",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                } else {
+                    updateString(it)
+                }
+            } else {
+                Toast.makeText(
+                    this@BaseFragment.context,
+                    "Naaah! Too many numbers ",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+        callConverter()
     }
 
 }
