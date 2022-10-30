@@ -25,16 +25,16 @@
     <string name="rightBracket">)</string>
     <string name="pow">^</string>
     <string name="sin">sin</string>
-    <string name="asn">asn</string>
+    <string name="asn">asin</string>
     <string name="cos">cos</string>
-    <string name="acs">acs</string>
+    <string name="acs">acos</string>
     <string name="ln">ln</string>
     <string name="pi">pi</string>
     <string name="lg">lg</string>
     <string name="e">e</string>
     <string name="tan">tan</string>
-    <string name="atn">atn</string>
-    <string name="square">sqrt</string>
+    <string name="atn">atan</string>
+    <string name="square">&#8730;</string>
     <string name="factorial">!</string>
 
 
