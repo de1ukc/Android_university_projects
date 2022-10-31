@@ -289,7 +289,6 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:background="@drawable/roundedbutton"
-                android:gravity="center_horizontal|top"
                 android:text="@string/dot"
                 android:textSize="50dp" />
 

@@ -89,7 +89,22 @@ class FieldFragment : Fragment() {
                         "Wrong Expression",
                         Toast.LENGTH_SHORT
                     ).show()
-                } else {
+
+                }else if(answer.contains("1.0E")){
+                    Toast.makeText(
+                        this@FieldFragment.context,
+                        "Вы вышли за предел, будьте аккуратнее",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (answer.equals("Lol")){
+                    Toast.makeText(
+                        this@FieldFragment.context,
+                        "Вы вышли за предел, будьте аккуратнее",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                else {
                     binding.editTextValue.setText(answer)
                     binding.editTextValue.setSelection(answer.length)
                 }
